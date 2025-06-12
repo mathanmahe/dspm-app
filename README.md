@@ -18,7 +18,7 @@ This architecture deploys a full-stack DSPM (Data Security Posture Management) a
   aws s3 sync build/ s3://dspm-app-storage/frontend/ --delete
   aws cloudfront create-invalidation --distribution-id <frontend-dist-id> --paths "/*"
 
-2️⃣ Backend API (FastAPI)
+## 2️⃣ Backend API (FastAPI)
 Deployed via AWS Copilot
 
 Load Balanced Web Service (ECS Fargate) with:
@@ -47,7 +47,7 @@ s3:GetObject from S3 bucket (scan-results)
 
 rds:Connect to PostgreSQL
 
-3️⃣ Scanner Job (Data Scanner)
+## 3️⃣ Scanner Job (Data Scanner)
 Deployed via Copilot Scheduled Job (Fargate)
 
 Runs on daily schedule (@daily)
@@ -70,10 +70,10 @@ s3:PutObject to bucket prefix scan-results/*
 
 rds:Connect for database access
 
-4️⃣ Database (PostgreSQL)
+## 4️⃣ Database (PostgreSQL)
 Hosted on Amazon RDS
 
-PostgreSQL engine
+ PostgreSQL engine
 
 Accessible from backend services via private VPC networking
 
