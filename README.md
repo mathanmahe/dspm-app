@@ -1,3 +1,83 @@
+## DSPM App Deployment Architecture
+
+This architecture deploys a full-stack DSPM (Data Security Posture Management) app on AWS, fully serverless, decoupled, scalable, and cost-optimized.
+
+---
+
+## 1️⃣ Frontend (React App)
+
+- **React static build** hosted on:
+  - Amazon S3 (`dspm-app-storage/frontend/`)
+  - Public access controlled via:
+    - AWS CloudFront (Frontend Distribution)
+    -  CloudFront domain: `https://d3r2bxpb2ww7u6.cloudfront.net`
+
+- **Deployment flow:**
+  ```bash
+  npm run build
+  aws s3 sync build/ s3://dspm-app-storage/frontend/ --delete
+  aws cloudfront create-invalidation --distribution-id <frontend-dist-id> --paths "/*"
+
+2️⃣ Backend API (FastAPI)
+Deployed via AWS Copilot
+
+Load Balanced Web Service (ECS Fargate) with:
+
+ALB (Application Load Balancer)
+
+Target group listens on port 8000
+
+Exposed via internal ELB DNS
+
+Public HTTPS access (final setup):
+
+Via secondary CloudFront Distribution (API Distribution)
+
+Origin set to ALB DNS (HTTP only from CloudFront → ALB)
+
+CloudFront provides free managed HTTPS for the API
+
+Environment variables: securely passed via Copilot
+
+Permissions:
+
+IAM Task Role attached to API service for:
+
+s3:GetObject from S3 bucket (scan-results)
+
+rds:Connect to PostgreSQL
+
+3️⃣ Scanner Job (Data Scanner)
+Deployed via Copilot Scheduled Job (Fargate)
+
+Runs on daily schedule (@daily)
+
+Responsibilities:
+
+Connect to PostgreSQL database (RDS)
+
+Scan for sensitive data using regex
+
+Generate scan_results.json file
+
+Upload results to:
+
+s3://dspm-app-storage/scan-results/scan_results.json
+
+IAM Role permissions:
+
+s3:PutObject to bucket prefix scan-results/*
+
+rds:Connect for database access
+
+4️⃣ Database (PostgreSQL)
+Hosted on Amazon RDS
+
+PostgreSQL engine
+
+Accessible from backend services via private VPC networking
+
+Secured with strong credentials (managed via environment variables)
 # Setup detailed steps. 
 
 1. first set up aws account
