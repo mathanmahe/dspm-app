@@ -1,8 +1,18 @@
+[Final Website](https://d3r2bxpb2ww7u6.cloudfront.net)
+
+
+[YouTube Demo](https://youtu.be/ycneN9ZbP8E)
+
+
 ## DSPM App Deployment Architecture
+
+
 
 This architecture deploys a full-stack DSPM (Data Security Posture Management) app on AWS, fully serverless, decoupled, scalable, and cost-optimized.
 
 ---
+
+![alt text](architecture.jpg "Architecture")
 
 ## 1️⃣ Frontend (React App)
 
@@ -18,7 +28,7 @@ This architecture deploys a full-stack DSPM (Data Security Posture Management) a
   aws s3 sync build/ s3://dspm-app-storage/frontend/ --delete
   aws cloudfront create-invalidation --distribution-id <frontend-dist-id> --paths "/*"
 
-## 2️⃣ Backend API (FastAPI)
+## 2️⃣ Backend API (Python - FastAPI)
 Deployed via AWS Copilot
 
 Load Balanced Web Service (ECS Fargate) with:
