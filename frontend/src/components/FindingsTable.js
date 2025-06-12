@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Table } from 'react-bootstrap'
+const API_BASE = "https://d2qixirojk1i9f.cloudfront.net"
 
 const FindingsTable = ({ filters, onSelect }) => {
   const [findings, setFindings] = useState([]);
@@ -29,7 +30,7 @@ const FindingsTable = ({ filters, onSelect }) => {
         params.confidence_min = confidenceMin;
         params.confidence_max = confidenceMax;
 
-        const res = await axios.get('http://localhost:8000/findings', { params });
+        const res = await axios.get(`${API_BASE}/findings`, { params });
         setFindings(res.data.findings);
       } catch (err) {
         console.error('Error fetching findings:', err);
