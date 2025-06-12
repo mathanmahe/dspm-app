@@ -1,0 +1,130 @@
+{
+  "metadata": {
+    "total": 5,
+    "page": 1,
+    "pageSize": 5,
+    "hasNextPage": false
+  },
+  "findings": [
+    {
+      "id": "finding_1",
+      "datastore": {
+        "type": "rds",
+        "engine": "postgresql",
+        "database": "postgres",
+        "table": "customers",
+        "column": "email"
+      },
+      "classification": {
+        "sensitivity": "HIGH",
+        "data_types": [
+          "Email"
+        ],
+        "regex_match": true,
+        "match_count": 1000,
+        "sample_values": [
+          "shelby82@hickman-young.com",
+          "stevenlong@levine.com",
+          "utanner@parker-hart.com"
+        ],
+        "confidence": 1.0
+      }
+    },
+    {
+      "id": "finding_1",
+      "datastore": {
+        "type": "rds",
+        "engine": "postgresql",
+        "database": "postgres",
+        "table": "credit_cards",
+        "column": "cc_number"
+      },
+      "classification": {
+        "sensitivity": "CRITICAL",
+        "data_types": [
+          "Credit Card"
+        ],
+        "regex_match": true,
+        "match_count": 206,
+        "sample_values": [
+          "9712745392889348.0",
+          "2407140622063096.0",
+          "4725565586912216.0"
+        ],
+        "confidence": 0.21
+      }
+    },
+    {
+      "id": "finding_1",
+      "datastore": {
+        "type": "rds",
+        "engine": "postgresql",
+        "database": "postgres",
+        "table": "chat_logs",
+        "column": "api_key"
+      },
+      "classification": {
+        "sensitivity": "MEDIUM",
+        "data_types": [
+          "API Key"
+        ],
+        "regex_match": true,
+        "match_count": 44,
+        "sample_values": [
+          "sk_live_1e84be8483824c2183940de1fb30e8cf",
+          "sk_live_40a6ca8c657f4b2b87b7385fb4662808",
+          "sk_live_e8f1f407b7294501b63087ae370c4bed"
+        ],
+        "confidence": 0.04
+      }
+    },
+    {
+      "id": "finding_1",
+      "datastore": {
+        "type": "rds",
+        "engine": "postgresql",
+        "database": "postgres",
+        "table": "leads",
+        "column": "phone_number"
+      },
+      "classification": {
+        "sensitivity": "MEDIUM",
+        "data_types": [
+          "Phone"
+        ],
+        "regex_match": true,
+        "match_count": 701,
+        "sample_values": [
+          "+1 841-271-7930",
+          "+1 229-822-5978",
+          "335-164-6436"
+        ],
+        "confidence": 0.7
+      }
+    },
+    {
+      "id": "finding_1",
+      "datastore": {
+        "type": "rds",
+        "engine": "postgresql",
+        "database": "postgres",
+        "table": "ssn_data",
+        "column": "ssn"
+      },
+      "classification": {
+        "sensitivity": "HIGH",
+        "data_types": [
+          "SSN"
+        ],
+        "regex_match": true,
+        "match_count": 96,
+        "sample_values": [
+          "633-49-3899",
+          "186-50-4950",
+          "396-75-2306"
+        ],
+        "confidence": 0.1
+      }
+    }
+  ]
+}

@@ -1,0 +1,179 @@
+🔹 Objective:
+Build a lightweight Cloud DSPM (Data Security Posture Management) solution that scans an AWS RDS database, identifies sensitive data using regex rules, and displays the results in a React-based dashboard. The solution should be deployed on AWS ECS using Docker.
+
+
+✅ Scope of Work
+1. Backend: AWS RDS Scanner
+Connect to an AWS RDS database (PostgreSQL or MySQL)
+
+Discover all user-created tables and columns
+
+Fetch sample rows from each table
+
+Apply regex-based classification to detect sensitive data, such as:
+
+Email addresses
+
+Social Security Numbers (SSNs)
+
+Phone numbers
+
+Credit card numbers
+
+2. Deployment: ECS + Docker
+Containerize the backend scanner using Docker
+
+Deploy the container on AWS ECS (Fargate preferred)
+
+Output findings in JSON format
+
+3. Frontend: React UI
+Create a React app to visualize scan results
+
+List of scanned tables
+
+Columns classified as sensitive
+
+Regex match types and sample values
+
+% of matched rows per column
+
+
+
+
+📊 Desired Output
+GitHub Repository Structure
+aws-dspm-assignment/
+├── scanner/              # Backend scanner code
+├── frontend/             # React UI
+├── deploy/               # Dockerfile, ECS scripts or IaC (optional)
+├── output/               # Sample output JSON
+└── README.md             # Setup, deploy, and run instructions
+
+Sample JSON Output
+{
+  "metadata": {
+    "total": 5,
+    "page": 1,
+    "pageSize": 5,
+    "hasNextPage": false
+  },
+  "findings": [
+    {
+      "id": "fnd_001",
+      "datastore": {
+        "type": "rds",
+        "engine": "postgresql",
+        "database": "crm",
+        "table": "customers",
+        "column": "email"
+      },
+      "classification": {
+        "sensitivity": "HIGH",
+        "data_types": ["PII", "Email"],
+        "regex_match": true,
+        "match_count": 1254,
+        "sample_values": ["jane.doe@example.com", "john.smith@company.org"],
+        "confidence": 0.97
+      }
+    },
+    {
+      "id": "fnd_002",
+      "datastore": {
+        "type": "rds",
+        "engine": "mysql",
+        "database": "billing",
+        "table": "credit_cards",
+        "column": "cc_number"
+      },
+      "classification": {
+        "sensitivity": "CRITICAL",
+        "data_types": ["PCI", "Credit Card"],
+        "regex_match": true,
+        "match_count": 1023,
+        "sample_values": ["4111-1111-1111-1111", "5500-0000-0000-0004"],
+        "confidence": 0.99
+      }
+    },
+    {
+      "id": "fnd_003",
+      "datastore": {
+        "type": "rds",
+        "engine": "postgresql",
+        "database": "employee_data",
+        "table": "health_info",
+        "column": "diagnosis"
+      },
+      "classification": {
+        "sensitivity": "HIGH",
+        "data_types": ["PHI", "Medical Diagnosis"],
+        "regex_match": false,
+        "match_count": 312,
+        "sample_values": ["Type 2 Diabetes", "Hypertension"],
+        "confidence": 0.92
+      }
+    },
+    {
+      "id": "fnd_004",
+      "datastore": {
+        "type": "rds",
+        "engine": "postgresql",
+        "database": "support",
+        "table": "chat_logs",
+        "column": "api_key"
+      },
+      "classification": {
+        "sensitivity": "MEDIUM",
+        "data_types": ["Credentials", "API Key"],
+        "regex_match": true,
+        "match_count": 42,
+        "sample_values": ["sk_live_abcdef123456", "AKIAIOSFODNN7EXAMPLE"],
+        "confidence": 0.95
+      }
+    },
+    {
+      "id": "fnd_005",
+      "datastore": {
+        "type": "rds",
+        "engine": "mysql",
+        "database": "marketing",
+        "table": "leads",
+        "column": "phone_number"
+      },
+      "classification": {
+        "sensitivity": "MEDIUM",
+        "data_types": ["PII", "Phone Number"],
+        "regex_match": true,
+        "match_count": 738,
+        "sample_values": ["+1-202-555-0132", "555-867-5309"],
+        "confidence": 0.90
+      }
+    }
+  ]
+}
+
+
+
+🚪 Deliverables
+GitHub link with full source code and README
+
+Live ECS deployment or instructions to run locally
+
+Loom-style video walkthrough (3–6 minutes)
+
+Architecture overview
+
+Code walkthrough
+
+Demo of scanner and UI output
+
+
+
+⏳ Time Expectation
+Please return the assignment by 9 am EST on June 12. If you'd need more time, please let me know. The goal is to demonstrate architectural thinking, AWS deployment skills, and frontend-backend integration.
+
+
+Please reach out if you need any clarification. We’re excited to see what you build!
+
+Thanks,
+Aatish
